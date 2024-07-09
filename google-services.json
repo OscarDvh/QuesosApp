@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518399927383",
+    "project_id": "pruebanc-da164",
+    "storage_bucket": "pruebanc-da164.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518399927383:android:ecedb34d12aa9492c8ef12",
+        "android_client_info": {
+          "package_name": "com.company.PruebaNC"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhkX6PFyUFRAX17sGSzrelwS_o7KBh_VM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
