@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import Fonts from '../../constants/Fonts';
@@ -8,21 +8,24 @@ import Colors from '../../constants/Colors';
 export default function State({ item, addToCart }) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  return (
+    return (
     <View style={styles.container}>
-      <View style={styles.leftColumn}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.status}>{item.description}</Text>
-        <Text style={styles.status}>{item.status ? 'Con Stock' : 'Sin Stock'}</Text>
-        <View style={styles.extra}>
-          <Text style={styles.code}>Precio: ${item.code}</Text>
+      <View style={styles.row}>
+        <Image source={{ uri: item.image }} style={styles.productImage} />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.status}>{item.description}</Text>
+          <Text style={styles.status}>{item.status ? 'Con Stock' : 'Sin Stock'}</Text>
+          <View style={styles.extra}>
+            <Text style={styles.code}>Precio: ${item.code}</Text>
+          </View>
         </View>
       </View>
       <View style={styles.rightColumn}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <AntDesign name="eyeo" size={24} color={Colors.black} style={styles.eyeicon} />
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.iconContainer}>
+          <AntDesign name="eyeo" size={24} color={Colors.black} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => addToCart(item)}>
+        <TouchableOpacity onPress={() => addToCart(item)} style={styles.iconContainer}>
           <AntDesign name="plus" size={24} color={Colors.black} />
         </TouchableOpacity>
       </View>
@@ -36,13 +39,17 @@ export default function State({ item, addToCart }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {/* Contenido del modal */}
             <TouchableOpacity onPress={() => setModalVisible(false)}>
               <AntDesign name="closecircleo" size={30} color={Colors.black} style={styles.closeButton} />
             </TouchableOpacity>
-            <Text style={styles.modalTitle}>{item.name}</Text>
-            <Text style={styles.modalDescription}>{item.description}</Text>
-            <Text style={styles.modalPrice}>Precio: ${item.code}</Text>
+            <View style={styles.productContainer}>
+              <Image source={{ uri: item.image }} style={styles.modalProductImage} />
+              <View style={styles.textContainer}>
+                <Text style={styles.modalTitle}>{item.name}</Text>
+                <Text style={styles.modalDescription}>{item.description}</Text>
+                <Text style={styles.modalPrice}>Precio: ${item.code}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </Modal>
@@ -52,25 +59,32 @@ export default function State({ item, addToCart }) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
     flexDirection: 'row',
-    marginBottom: 20,
+    justifyContent: 'space-evenly',
+    marginBottom: 5,
     backgroundColor: Colors.grey,
-    borderRadius: 30,
+    borderRadius: 10,
+    padding: 10,
   },
-  leftColumn: {
-    padding: 11,
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    paddingLeft: 10,
+  },
+  productImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
   },
   rightColumn: {
-    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-    paddingLeft: 130,
+    alignItems: 'center',
   },
-  eyeicon: {
-    paddingRight: 15,
+  iconContainer: {
+    padding: 10,
   },
   title: {
     marginBottom: 4,
@@ -101,6 +115,16 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+  productContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  modalProductImage: {
+    width: 100,
+    height: 100,
+    marginRight: 20,
+    borderRadius: 10,
+  },
   modalTitle: {
     fontFamily: Fonts.family.bold,
     fontSize: 24,
@@ -117,6 +141,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   closeButton: {
-    marginLeft:320,
+    marginLeft: 'auto',
   },
 });

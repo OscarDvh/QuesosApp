@@ -43,6 +43,7 @@ export default function StateModal({
         await setDoc(doc(collection(db, "states")), {
           name: selected.name,
           code: selected.code,
+          image: select.image,
           status: selected.status,
           description: selected.description,
         });
@@ -55,6 +56,7 @@ export default function StateModal({
           {
             name: selected.name,
             code: selected.code,
+            image: selected.image,
             status: selected.status,
             description: selected.description,
           },
@@ -96,6 +98,11 @@ export default function StateModal({
         value={selected?.code || ""}
         label="Precio"
         onChange={(value) => setSelected((prev) => ({ ...prev, code: value }))}
+      />
+      <FormItem
+        value={selected?.Image || ""}
+        label="Imagen (URL)"
+        onChange={(value) => setSelected((prev) => ({ ...prev, Image: value }))}
       />
       <SelectDropdown
         ref={statusRef}

@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { FlatList, ScrollView, Alert } from "react-native";
+import { FlatList, Alert } from "react-native";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, query, orderBy, onSnapshot, doc, deleteDoc, setDoc } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, doc, setDoc } from "firebase/firestore";
 
 import { Content, Header, Wrapper } from "../components/layout";
 import Statec from "../components/controls/Statec";
-import Button from "../components/controls/Button";
 import StateModal from "../components/modals/StateModal";
 import Colors from '../constants/Colors';
-
 
 import { auth, db } from "../firebase-config";
 
@@ -18,6 +16,7 @@ export default function Home({ navigation }) {
     key: "",
     name: "",
     code: "",
+    image: "",
     status: false,
   });
   const [data, setData] = useState([]);
@@ -50,14 +49,13 @@ export default function Home({ navigation }) {
     });
     return subscriber;
   }, [auth]);
-                                                      
+
   const toggleModal = () => {
     setVisible(!visible);
   };
 
   let Product;
   const addToCart = (item) => {
-
     Product = item;
     Product['qty'] = 1;
     Product['TotalProductPrice'] = Product.code * Product.qty;
@@ -73,7 +71,6 @@ export default function Home({ navigation }) {
       .catch((error) => {
         console.error('Error adding item to cart: ', error);
       });
-
   };
 
   return (
@@ -84,17 +81,16 @@ export default function Home({ navigation }) {
         visible={visible}
         onClose={toggleModal}
       />
-      <Header title="Gourmet Wheel Comprador" showCart={true}/>
+      <Header title="Gourmet Wheel Comprador" showCart={true} />
       <Content>
-        <ScrollView horizontal={true} style={{ width: '100%' }}>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <Statec item={item} addToCart={addToCart}  />
-            )}
-            keyExtractor={(item) => item.key}
-          />
-        </ScrollView>
+        <FlatList
+          horizontal
+          data={data}
+          renderItem={({ item }) => (
+            <Statec item={item} addToCart={addToCart} />
+          )}
+          keyExtractor={(item) => item.key}
+        />
       </Content>
     </Wrapper>
   );

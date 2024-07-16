@@ -17,6 +17,7 @@ export default function Home({ navigation }) {
     key: "",
     name: "",
     code: "",
+    image: "",
     status: false,
   });
   const [data, setData] = useState([]);
@@ -54,6 +55,7 @@ export default function Home({ navigation }) {
       key: "",
       name: "",
       code: "",
+      image: "",
       status: false,
     });
     toggleModal();
@@ -91,15 +93,14 @@ export default function Home({ navigation }) {
       <Header title="Gourmet Wheel" showCart={false}/>
       <Content>
         <Button label="Crear nuevo" onPress={createNew} />
-        <ScrollView horizontal={true} style={{ width: '100%' }}>
           <FlatList
+            horizontal
             data={data}
             renderItem={({ item }) => (
               <State item={item} onEdit={editState} onDelete={deleteState} />
             )}
             keyExtractor={(item) => item.key}
           />
-        </ScrollView>
       </Content>
     </Wrapper>
   );
